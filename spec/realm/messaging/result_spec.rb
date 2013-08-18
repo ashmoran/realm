@@ -82,23 +82,6 @@ module Realm
               result.foo(foo_value: "some foo value")
               expect { value }.to raise_error(ArgumentError, /1 for 0/)
             end
-
-            it "doesn't crash the actor" do
-              result.foo(foo_value: "some foo value")
-
-              # Specific negative expections are deprecated in RSpec, sigh
-              expect {
-                # First call might crash the actor
-                pass_handlers_to_result rescue nil
-                begin
-                  # Second call will raise an error
-                  pass_handlers_to_result
-                rescue Exception => e
-                  # Swallow it unless it's a dead actor, in which case we care
-                  raise if e.is_a?(Celluloid::DeadActorError)
-                end
-              }.to_not raise_error
-            end
           end
         end
 
@@ -111,17 +94,6 @@ module Realm
               expect(error.message).to include(" wrong_foo_value")
             }
           end
-
-          it "doesn't crash the actor" do
-            expect {
-              result.foo(wrong_foo_value: "some foo value") rescue nil
-              begin
-                result.foo(foo_value: "some foo value")
-              rescue Exception => e
-                raise if e.is_a?(Celluloid::DeadActorError)
-              end
-            }.to_not raise_error
-          end
         end
       end
 
@@ -130,17 +102,6 @@ module Realm
           expect {
             result.unknown_response
           }.to raise_error(UnhandledMessageError, /unknown_response/)
-        end
-
-        it "doesn't crash the actor" do
-          expect {
-            result.unknown_response rescue nil
-            begin
-              result.unknown_response
-            rescue Exception => e
-              raise if e.is_a?(Celluloid::DeadActorError)
-            end
-          }.to_not raise_error
         end
       end
 
@@ -191,19 +152,6 @@ module Realm
               pass_handlers_to_result
             }.to raise_error(UnknownMessageTypeError, /baz/)
           end
-
-          it "doesn't crash the actor" do
-            result.foo(foo_value: "some foo value")
-
-            expect {
-              pass_handlers_to_result rescue nil
-              begin
-                pass_handlers_to_result
-              rescue Exception => e
-                raise if e.is_a?(Celluloid::DeadActorError)
-              end
-            }.to_not raise_error
-          end
         end
 
         # This context taken from FakeMessageResponse
@@ -227,19 +175,6 @@ module Realm
               result.foo(foo_value: "some foo value")
               value
             }.to raise_error(UnhandledMessageError, /foo/)
-          end
-
-          it "doesn't crash the actor" do
-            result.foo(foo_value: "some foo value")
-
-            expect {
-              pass_handlers_to_result rescue nil
-              begin
-                pass_handlers_to_result
-              rescue Exception => e
-                raise if e.is_a?(Celluloid::DeadActorError)
-              end
-            }.to_not raise_error
           end
         end
       end
