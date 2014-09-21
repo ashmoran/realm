@@ -137,8 +137,10 @@ module Realm
           end
 
           it "sends all messages to handlers for :all_messages" do
-            message_handler_a.stub(handle_foo: nil, handle_bar: nil)
-            message_handler_b.stub(handle_foo: nil, handle_bar: nil)
+            allow(message_handler_a).to receive(:handle_foo) { nil }
+            allow(message_handler_a).to receive(:handle_bar) { nil }
+            allow(message_handler_b).to receive(:handle_foo) { nil }
+            allow(message_handler_b).to receive(:handle_bar) { nil }
 
             message_bus.register(:all_messages, message_handler_a)
 
@@ -152,8 +154,9 @@ module Realm
           end
 
           it "sends unhandled messages to handlers for :unhandled_messages" do
-            message_handler_a.stub(handle_foo: nil, handle_bar: nil)
-            message_handler_b.stub(handle_unhandled_message: nil)
+            allow(message_handler_a).to receive(:handle_foo) { nil }
+            allow(message_handler_a).to receive(:handle_bar) { nil }
+            allow(message_handler_b).to receive(:handle_unhandled_message) { nil }
 
             message_bus.register(:foo, message_handler_a)
             message_bus.register(:unhandled_message, message_handler_b)
@@ -218,8 +221,11 @@ module Realm
           # only one of them. This makes the code here a bit hacky, but fortunately at least
           # simplifies the MessageLogger which therefore doesn't neet to worry about it.
           it "sends all messages to handlers for :all_messages, not the response port" do
-            message_handler_a.stub(handle_foo: nil, handle_bar: nil)
-            message_handler_b.stub(handle_foo: nil, handle_bar: nil)
+            allow(message_handler_a).to receive(:handle_foo) { nil }
+            allow(message_handler_a).to receive(:handle_bar) { nil }
+            allow(message_handler_b).to receive(:handle_foo) { nil }
+            allow(message_handler_b).to receive(:handle_bar) { nil }
+
 
             message_bus.register(:all_messages, message_handler_a)
 
@@ -261,7 +267,7 @@ module Realm
           end
 
           it "sends unhandled messages to the specified handler" do
-            message_handler_a.stub(handle_unhandled_message: nil)
+            allow(message_handler_a).to receive(:handle_unhandled_message) { nil }
             message_bus.register(:foo, message_handler_a)
 
             message_bus.send(message_factory.build(:bar))
@@ -290,15 +296,15 @@ module Realm
           # This is a very roundabout way of proving we pass the response port (result) to the handler
           context "a response port" do
             before(:each) do
-              result.stub(message_handled: nil)
+              allow(result).to receive(:message_handled) { nil }
             end
 
             before(:each) do
               # We have to use a hash (dependencies) here because Ruby 2 blocks
               # don't yet support keyword args
-              message_handler_a.stub(:handle_message_type_1) do |message, dependencies|
+              allow(message_handler_a).to receive(:handle_message_type_1) { |message, dependencies|
                 dependencies.fetch(:response_port).message_handled("I got #{message.message_data}")
-              end
+              }
             end
 
             it "lets you specify a response port" do

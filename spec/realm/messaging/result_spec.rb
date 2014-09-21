@@ -28,24 +28,24 @@ module Realm
       describe "#understand_response?" do
         context "the response is known" do
           example do
-            expect(result.understand_response?(:foo)).to be_true
+            expect(result.understand_response?(:foo)).to be true
           end
         end
 
         context "the response is not known" do
           example do
-            expect(result.understand_response?(:kaboom)).to be_false
+            expect(result.understand_response?(:kaboom)).to be false
           end
         end
 
         describe "respond_to?" do
-          it "is an alias (but understand_response? is semantically richer)" do
-            expect(result.respond_to?(:foo)).to be_true
-            expect(result.respond_to?(:kaboom)).to be_false
+          it "currently behaves differently from understand_response? (see comments in the code)" do
+            expect(result.respond_to?(:foo)).to be true
+            expect(result.respond_to?(:kaboom)).to be true # different
           end
 
           it "behaves like the basic respond_to?" do
-            expect(result.respond_to?(:to_s)).to be_true
+            expect(result.respond_to?(:to_s)).to be true
           end
         end
       end

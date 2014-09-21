@@ -29,7 +29,7 @@ module Realm
             }
 
             before(:each) do
-              Domain::User.stub(create: user)
+              allow(Domain::User).to receive(:create) { user }
             end
 
             let(:command) {

@@ -13,7 +13,7 @@ module Realm
             )
           end
 
-          def change_password(new_password, cryptographer: required(:cryptographer))
+          def change_password(new_password, cryptographer:)
             fire(:password_changed,
               encrypted_password: cryptographer.encrypt_password(new_password)
             )

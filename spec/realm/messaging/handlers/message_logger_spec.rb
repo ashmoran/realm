@@ -5,7 +5,7 @@ require 'realm/messaging/handlers/message_logger'
 module Realm
   module Messaging
     module Handlers
-      describe MessageLogger do
+      describe MessageLogger, async: true do
         let(:message)   { double("Message", output_to: "formatted_message") }
         let(:formatter) { double("Formatter") }
         let(:logger)    { double("Logger", info: nil) }
@@ -29,6 +29,10 @@ module Realm
             expect {
               handler.bar_foo
             }.to raise_error(NoMethodError)
+          end
+
+          specify "respond_to? matches method_missing" do
+            expect(handler).to respond_to(:handle_foo)
           end
 
           specify "only one argument is accepted" do

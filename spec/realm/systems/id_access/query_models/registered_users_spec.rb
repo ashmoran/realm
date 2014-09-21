@@ -12,7 +12,7 @@ module Realm
         # we solve persistence properly.
         # This interface to the "database" is no good, though, it can't be replaced
         # with anything more sophisticated while we're using #select, #detect etc.
-        describe RegisteredUsers do
+        describe RegisteredUsers, async: true do
           let(:database) {
             double(
               "QueryDatabase",
@@ -74,13 +74,13 @@ module Realm
 
           describe "querying" do
             before(:each) do
-              database.stub(
-                records: [
+              allow(database).to receive(:records) {
+                [
                   { uuid: :uuid_1, data: "data a", extra: "extra data" },
                   { uuid: :uuid_1, data: "data b", extra: "extra data" },
                   { uuid: :uuid_2, data: "data b", extra: "extra data" }
                 ]
-              )
+              }
             end
 
             describe "#record_for" do

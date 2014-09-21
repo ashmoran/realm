@@ -13,7 +13,7 @@ RSpec::Matchers.define :have_no_uncommitted_events do
     aggregate_root.uncommitted_events.empty?
   end
 
-  failure_message_for_should do |aggregate_root|
+  failure_message do |aggregate_root|
     "Expected #{aggregate_root} to have no uncommitted_events but it had: \n" +
     aggregate_root.uncommitted_events.map { |event| "*  #{event}\n" }.join
   end

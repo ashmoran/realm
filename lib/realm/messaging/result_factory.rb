@@ -5,7 +5,7 @@ module Realm
     class ResultFactory
       # Pass in MessageFactory objects for the commands and response messages -
       # these could be the same object if that is convenient for the client
-      def initialize(commands: required(:commands), responses: required(:responses))
+      def initialize(commands:, responses:)
         @commands   = commands
         @responses  = responses
       end

@@ -4,7 +4,7 @@ module Realm
       module Domain
         # Is this actually an Application Service?
         class UserService
-          def initialize(registered_users: required(:registered_users))
+          def initialize(registered_users:)
             @registered_users = registered_users
           end
 

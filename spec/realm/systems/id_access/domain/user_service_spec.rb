@@ -23,7 +23,7 @@ module Realm
               end
 
               it "is true" do
-                expect(service.username_available?("username")).to be_true
+                expect(service.username_available?("username")).to be true
               end
             end
 
@@ -36,7 +36,7 @@ module Realm
               end
 
               it "is false" do
-                expect(service.username_available?("username")).to be_false
+                expect(service.username_available?("username")).to be false
               end
             end
           end
@@ -51,7 +51,7 @@ module Realm
               end
 
               it "is true" do
-                expect(service.email_address_available?("email_address")).to be_true
+                expect(service.email_address_available?("email_address")).to be true
               end
             end
 
@@ -64,7 +64,7 @@ module Realm
               end
 
               it "is false" do
-                expect(service.email_address_available?("email_address")).to be_false
+                expect(service.email_address_available?("email_address")).to be false
               end
             end
           end

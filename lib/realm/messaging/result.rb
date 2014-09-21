@@ -6,7 +6,7 @@ module Realm
     class Result
       include Celluloid
 
-      def initialize(responses: r(:responses))
+      def initialize(responses:)
         @responses = responses
 
         @message_type_name  = nil
@@ -43,12 +43,17 @@ module Realm
       # Hacky way of handling messages while we don't have an explicit
       # definition of response messages
       def method_missing(message_type_name, *args)
+        # See note in respond_to?
+        if @responses.nil?
+          return super
+        end
+
         if !@responses.has_key?(message_type_name)
           abort UnhandledMessageError.new(message_type_name)
         end
 
-        # Assumes we got one argument, and also that #new_messages raises an error...
-        # (Maybe we should have have an `assert_valid_message` method instead
+        # Assumes we got one argument, and also that #new_message raises an error...
+        # (Maybe we should have have an `assert_valid_message` method instead)
         begin
           @responses[message_type_name].new_message(args.first)
         rescue MessagingError => e
@@ -65,7 +70,20 @@ module Realm
       end
 
       def respond_to?(message_type_name, include_private = false)
-        understand_response?(message_type_name) || super
+        # I think Celluloid 0.16 changed something so that `respond_to?` is used
+        # before the object has been initialize, so we need to check if we have
+        # responses before using `understand_response?`
+        if @responses
+          # It gets worse. Celluloid is now doing checks that mean it throws a
+          # NoMethodError before we get chance to throw our own UnhandledMessageError.
+          # Maybe the whole thing needs rethinking.
+          return true
+
+          # Wanted to do this...
+          # understand_response?(message_type_name) || super
+        else
+          super
+        end
       end
     end
   end

@@ -5,6 +5,8 @@ require 'realm'
 require 'realm/spec'
 require 'realm/spec/matchers'
 
+require 'rspec/its'
+
 # Silence debug-level actor shutdown warnings
 Celluloid.logger.level = Logger::Severity::INFO
 

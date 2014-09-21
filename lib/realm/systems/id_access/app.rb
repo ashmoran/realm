@@ -5,13 +5,9 @@ module Realm
   module Systems
     module IdAccess
       class App
-        def initialize(
-            message_bus:    required(:message_bus),
-            message_logger: nil,
-            event_store:    required(:event_store),
-            query_database: required(:query_database),
-            cryptographer:  required(:cryptographer),
-            config:         { })
+        def initialize(message_bus:, message_logger: nil,
+                       event_store:, query_database:,
+                       cryptographer:, config: { })
           @message_bus    = message_bus
           @message_logger = message_logger
           @event_store    = event_store

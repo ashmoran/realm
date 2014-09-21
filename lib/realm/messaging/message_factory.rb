@@ -23,7 +23,7 @@ module Realm
         message_type.new_message(attributes)
       end
 
-      def determine_responses_to(message_type_name, from: required(:from))
+      def determine_responses_to(message_type_name, from:)
         originating_message_type =
           @message_types.fetch(message_type_name) {
             raise UnknownMessageTypeError.new(message_type_name)

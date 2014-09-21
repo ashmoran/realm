@@ -11,13 +11,13 @@ module Realm
         context "valid" do
           subject(:result) { validator.validate("valid") }
 
-          its(:valid?) { should be_true }
+          its(:valid?) { should be true }
         end
 
         context "invalid" do
           subject(:result) { validator.validate("this is invalid!") }
 
-          its(:valid?) { should be_false }
+          its(:valid?) { should be false }
         end
       end
     end

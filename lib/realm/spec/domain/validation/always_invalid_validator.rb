@@ -4,7 +4,7 @@ module Realm
   module Domain
     module Validation
       class AlwaysInvalidValidator
-        def initialize(message: required(:message))
+        def initialize(message:)
           @message = message
         end
 

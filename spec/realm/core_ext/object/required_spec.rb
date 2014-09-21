@@ -16,6 +16,13 @@ describe Object do
   }
 
   describe "#required" do
+    it "is no longer needed and should be removed" do
+      pending
+      expect {
+        required(:foo)
+      }.to raise_error(NoMethodError)
+    end
+
     example "with a required keyword arg" do
       expect(object.method_with_keyword_arg(keyword_arg: :arg)).to be == :arg
     end

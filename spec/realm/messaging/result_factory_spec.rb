@@ -36,12 +36,12 @@ module Realm
 
         context "response MessageType(s) exists " do
           it "constructs a result with the responses" do
-            expect(result.understand_response?(:this_happened)).to be_true
-            expect(result.understand_response?(:that_happened)).to be_true
+            expect(result.understand_response?(:this_happened)).to be true
+            expect(result.understand_response?(:that_happened)).to be true
           end
 
           it "ignores other responses" do
-            expect(result.understand_response?(:the_other_happened)).to be_false
+            expect(result.understand_response?(:the_other_happened)).to be false
           end
 
           it "creates a result" do

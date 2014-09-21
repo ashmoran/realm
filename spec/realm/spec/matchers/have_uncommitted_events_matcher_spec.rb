@@ -38,7 +38,7 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
     specify {
       expect(
         have_no_uncommitted_events.matches?(aggregate_root)
-      ).to be_true
+      ).to be true
     }
   end
 
@@ -55,13 +55,13 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
       it "does not match" do
         expect(
           matcher.matches?(aggregate_root)
-        ).to be_false
+        ).to be false
       end
 
       specify "error message mentions all uncommitted events" do
         matcher.matches?(aggregate_root)
         expect(
-          matcher.failure_message_for_should
+          matcher.failure_message
         ).to include("this_happened", "that_happened", "one", "ein", "x")
       end
     end
@@ -71,13 +71,13 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
         it "does not match" do
           expect(
             matcher.matches?(aggregate_root)
-          ).to be_false
+          ).to be false
         end
 
         specify "error message mentions all uncommitted events" do
           matcher.matches?(aggregate_root)
           expect(
-            matcher.failure_message_for_should
+            matcher.failure_message
           ).to include("this_happened", "that_happened", "one", "ein", "x")
         end
       end
@@ -92,13 +92,13 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
         it "does not match" do
           expect(
             matcher.matches?(aggregate_root)
-          ).to be_false
+          ).to be false
         end
 
         specify "error message" do
           matcher.matches?(aggregate_root)
           expect(
-            matcher.failure_message_for_should
+            matcher.failure_message
           ).to include("this_happened", "property_1", "wrong value")
         end
       end
@@ -113,7 +113,7 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
         it "matches" do
           expect(
             matcher.matches?(aggregate_root)
-          ).to be_true
+          ).to be true
         end
       end
 
@@ -130,7 +130,7 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
           it "matches" do
             expect(
               matcher.matches?(aggregate_root)
-            ).to be_true
+            ).to be true
           end
         end
 
@@ -146,13 +146,13 @@ describe "expect(aggregate_root).to have_uncommitted_events(...)" do
           it "does not match" do
             expect(
               matcher.matches?(aggregate_root)
-            ).to be_false
+            ).to be false
           end
 
           specify "error message includes non-matching events" do
             matcher.matches?(aggregate_root)
             expect(
-              matcher.failure_message_for_should
+              matcher.failure_message
             ).to include("that_happened", "property_b", "z")
           end
         end

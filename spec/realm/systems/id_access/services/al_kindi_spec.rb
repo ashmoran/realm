@@ -36,19 +36,19 @@ module Realm
             end
 
             specify "re-encryption with incorrect password" do
-              expect {
+              expect(
                 cryptographer.encrypt_password(
                   "password", salt: encrypted_password[:salt]
                 )
-              }.to_not be == encrypted_password[:encrypted_password]
+              ).to_not be == encrypted_password[:encrypted_password]
             end
 
             specify "re-encryption with incorrect salt" do
-              expect {
+              expect(
                 cryptographer.encrypt_password(
                   "correct horse battery staple", salt: "wrong salt not even encoded properly"
                 )
-              }.to_not be == encrypted_password[:encrypted_password]
+              ).to_not be == encrypted_password[:encrypted_password]
             end
 
             describe "encryption parameters" do

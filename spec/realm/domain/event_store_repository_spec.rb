@@ -32,7 +32,7 @@ module Realm
       subject(:repository) { repository_class.new(event_store) }
 
       before(:each) do
-        aggregate_root_class.stub(load_from_history: aggregate_root)
+        allow(aggregate_root_class).to receive(:load_from_history) { aggregate_root }
       end
 
       describe ".domain_term_for" do

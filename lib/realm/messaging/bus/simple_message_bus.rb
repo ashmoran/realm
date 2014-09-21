@@ -35,7 +35,7 @@ module Realm
           Actor.current
         end
 
-        def route_messages_for_subsystem(subsystem_name, to_message_bus: required(:to_message_bus))
+        def route_messages_for_subsystem(subsystem_name, to_message_bus:)
           @subsystem_routes[subsystem_name] = to_message_bus
         end
 
@@ -66,7 +66,7 @@ module Realm
 
         private
 
-        def route_message(message, delivery_type: required(:delivery_type))
+        def route_message(message, delivery_type:)
           @subsystem_routes[message.system_name].__send__(delivery_type, message)
         end
 

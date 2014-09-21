@@ -13,7 +13,7 @@ module Realm
         subject(:result) { validator.validate(command) }
 
         # Currently, at least...
-        its(:valid?) { should be_true }
+        its(:valid?) { should be true }
         its(:message) { should be_nil }
       end
 
@@ -38,21 +38,21 @@ module Realm
           context "no violations" do
             let(:command) { OpenStruct.new(foo: "abc", bar: "123") }
 
-            its(:valid?) { should be_true }
+            its(:valid?) { should be true }
             its(:message) { should be_nil }
           end
 
           context "a violation" do
             let(:command) { OpenStruct.new(foo: "abc", bar: "not digits") }
 
-            its(:valid?) { should be_false }
+            its(:valid?) { should be false }
             its(:message) { should be == "Bar must be only digits" }
           end
 
           context "multiple violations" do
             let(:command) { OpenStruct.new(foo: "123!", bar: "not digits") }
 
-            its(:valid?) { should be_false }
+            its(:valid?) { should be false }
             its(:message) { should be == "Foo must be alphabetic; Bar must be only digits" }
           end
         end

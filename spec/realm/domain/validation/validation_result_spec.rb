@@ -7,8 +7,8 @@ module Realm
         subject(:result) { ValidationResult.new }
 
         context "initially" do
-          its(:valid?)    { should be_true }
-          its(:invalid?)  { should be_false }
+          its(:valid?)    { should be true }
+          its(:invalid?)  { should be false }
           its(:message)   { should be_nil }
         end
 
@@ -17,8 +17,8 @@ module Realm
             result.invalid
           end
 
-          its(:valid?)    { should be_false }
-          its(:invalid?)  { should be_true }
+          its(:valid?)    { should be false }
+          its(:invalid?)  { should be true }
           its(:message)   { should be_nil }
 
           context "with a message" do
@@ -44,8 +44,8 @@ module Realm
               result.valid
             end
 
-            its(:valid?)    { should be_true }
-            its(:invalid?)  { should be_false }
+            its(:valid?)    { should be true }
+            its(:invalid?)  { should be false }
             its(:message)   { should be_nil }
 
             context "with a message" do

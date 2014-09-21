@@ -105,7 +105,7 @@ module Realm
           specify {
             expect(
               message_type.accept_as_response?(:response_message_name_1)
-            ).to be_true
+            ).to be true
           }
         end
 
@@ -113,7 +113,7 @@ module Realm
           specify {
             expect(
               message_type.accept_as_response?(:unknown_message_name)
-            ).to be_false
+            ).to be false
           }
         end
       end

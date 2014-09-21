@@ -14,7 +14,7 @@ module Realm
             }
 
             before(:each) do
-              Realm.stub(uuid: :generated_uuid)
+              allow(Realm).to receive(:uuid) { :generated_uuid }
             end
 
             it "has an uncommitted :user_registered event" do

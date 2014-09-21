@@ -6,17 +6,14 @@ module Realm
           class SignUpUser
             include Celluloid
 
-            def initialize(user_registry: required(:user_registry),
-                           user_service:  required(:user_service),
-                           cryptographer: required(:cryptographer),
-                           validator:     required(:validator))
+            def initialize(user_registry:, user_service:, cryptographer:, validator:)
               @user_registry  = user_registry
               @user_service   = user_service
               @cryptographer  = cryptographer
               @validator      = validator
             end
 
-            def handle_sign_up_user(command, response_port: required(:response_port))
+            def handle_sign_up_user(command, response_port:)
               validation_result = @validator.validate(command)
 
               if validation_result.valid?

@@ -12,8 +12,8 @@ module Realm
         describe "result" do
           subject(:result) { validator.validate(target) }
 
-          its(:valid?)    { should be_false }
-          its(:invalid?)  { should be_true }
+          its(:valid?)    { should be false }
+          its(:invalid?)  { should be true }
           its(:message)   { should be == "validation message" }
         end
 
