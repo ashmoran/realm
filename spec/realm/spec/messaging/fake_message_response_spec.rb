@@ -58,7 +58,9 @@ module Realm
             }
 
             specify "is treated as the multiple arument case" do
-              expect { value }.to raise_error(ArgumentError, /3 for 1/)
+              expect { value }.to raise_error(ArgumentError,
+                /3 for 1|given 3, expected 1/ # MRI | Rubinius
+              )
             end
           end
         end

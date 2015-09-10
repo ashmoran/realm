@@ -80,7 +80,9 @@ module Realm
 
             it "raises an ArgumentError" do
               result.foo(foo_value: "some foo value")
-              expect { value }.to raise_error(ArgumentError, /1 for 0/)
+              expect { value }.to raise_error(ArgumentError,
+                /1 for 0|given 1, expected 0/ # MRI | Rubinius
+              )
             end
           end
         end
