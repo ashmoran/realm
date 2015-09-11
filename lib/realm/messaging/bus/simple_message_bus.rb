@@ -64,6 +64,12 @@ module Realm
           nil
         end
 
+        def wait_for_all
+          (@handlers.values << @unhandled_send_handler).flatten.each do |handler|
+            handler.object_id
+          end
+        end
+
         private
 
         def route_message(message, delivery_type:)

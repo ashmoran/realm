@@ -318,6 +318,10 @@ module Realm
             end
           end
         end
+
+        describe "#wait_for_all" do
+          it "is a temporary hacky debugging method, but it's better than #sleep in examples"
+        end
       end
     end
   end

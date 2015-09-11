@@ -48,6 +48,8 @@ module Realm
                 )
               )
 
+              event_bus.wait_for_all
+
               expect(database).to have_received(:save).with(
                 uuid:           :user_uuid,
                 username:       "new_username",
